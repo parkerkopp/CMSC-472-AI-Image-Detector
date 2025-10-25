@@ -16,11 +16,12 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
-            nn.ReLU(),
-            nn.Linear(512, 512),
-            nn.ReLU(),
-            nn.Linear(512, 10)
+            nn.Conv2d(2, 32, 3, padding = 1)
+            nn.MaxPool2d(2, 2)
+            nn.Conv2d(32, 64, 3, padding = 1)
+            nn.Linear(64*8*8, 128)
+            nn.Linear(128, 2) #binary classification, image is AI generated or not
+            nn.ReLU()
         )
 
     def forward(self, x):
